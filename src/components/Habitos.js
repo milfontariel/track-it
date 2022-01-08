@@ -1,134 +1,73 @@
+import axios from 'axios';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react/cjs/react.development';
 import styled from 'styled-components';
 import LogoP from '../assets/logo_p.svg';
+import UserContext from '../contexts/UserContext';
+import WeekDays from './WeekDays';
 
 export default function Habitos() {
+    const { userData, token } = useContext(UserContext);
+    const [habits, setHabits] = useState([]);
+
+    const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+    promise.then(response => setHabits(response.data));
+    promise.catch(error => console.log(error.response));
+
+    const [status, setStatus] = useState(false);
+
+    function handleCreate(e){
+        e.preventDefault();
+
+        setStatus(true);
+
+
+
+    }
+
     return (
         <Container>
             <Header>
                 <img src={LogoP} alt="Logo TrackIt" />
+                <Profile image={userData.image}></Profile>
             </Header>
             <SectionTitle>
                 <h1>Meus Hábitos</h1>
-                <AddBtn>+</AddBtn>
+                <AddBtn onClick={handleCreate}>+</AddBtn>
             </SectionTitle>
             <SectionHabits>
-                <FormCreateHabit>
-                    <InputCreateHabit type='text' placeholder='nome do hábito'></InputCreateHabit>
-                    <InputWeekDays>
-                        <input type="checkbox" id="weekday-seg" className="weekday" />
-                        <label for="weekday-seg">S</label>
-                        <input type="checkbox" id="weekday-ter" className="weekday" />
-                        <label for="weekday-ter">T</label>
-                        <input type="checkbox" id="weekday-qua" className="weekday" />
-                        <label for="weekday-qua">Q</label>
-                        <input type="checkbox" id="weekday-qui" className="weekday" />
-                        <label for="weekday-qui">Q</label>
-                        <input type="checkbox" id="weekday-sex" className="weekday" />
-                        <label for="weekday-sex">S</label>
-                        <input type="checkbox" id="weekday-sab" className="weekday" />
-                        <label for="weekday-sab">S</label>
-                        <input type="checkbox" id="weekday-dom" className="weekday" />
-                        <label for="weekday-dom">D</label>
-                    </InputWeekDays>
-                    <Btns>
-                        <BtnCancel>Cancelar</BtnCancel>
-                        <BtnSave>Salvar</BtnSave>
-                    </Btns>
-                </FormCreateHabit>
-                <p>
-                    Você não tem nenhum hábito cadastrado ainda. Adicione um hábito
-                    para começar a trackear!
-                </p>
+                {status !== false ? <WeekDays/> : ''}
+                {habits.length === 0 ?
+                    <p>
+                        Você não tem nenhum hábito cadastrado ainda. Adicione um hábito
+                        para começar a trackear!
+                    </p>
+                    : ``
+                }
+
             </SectionHabits>
             <Footer>
-                <Link to='/'>Hábitos</Link>
-                <Today>Hoje</Today>
-                <Link to='/'>Histórico</Link>
+                <Link to='/habitos'>Hábitos</Link>
+                <Link to='/hoje'><Today>Hoje</Today></Link>
+                <Link to='/historico'>Histórico</Link>
             </Footer>
         </Container>
     );
 }
 
-/* FORM CREATE HABIT */
-
-const FormCreateHabit = styled.form`
-    width: 100%;
-    padding: 20px 20px;
-    background-color: #fff;
-    box-sizing: border-box;
-    display: flex;
-    border-radius: 5px;
-    flex-direction: column;
-    gap: 10px;
+const Profile = styled.div`
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    background: ${props => `url(${props.image})`};
+    background-color: #ff0;
+    background-size: cover;
 `
-
-const InputWeekDays = styled.div`
-
-    & input {
-        display: none !important;
-    }
-
-    & input[type=checkbox] + label {
-        display: inline-block;
-        border-radius: 6px;
-        background: none;
-        border: 2px solid #CFCFCF;
-        height: 35px;
-        width: 30px;
-        margin-right: 3px;
-        line-height: 35px;
-        text-align: center;
-        cursor: pointer;
-        color: #CFCFCF;
-    }
-
-    & input[type=checkbox]:checked + label {
-        background: #CFCFCF;
-        color: #fff;
-    }
-
-`
-const InputCreateHabit = styled.input`
-    width: 100%;
-    padding: 15px;
-    border-radius: 5px;
-    border-style: none;
-    border: 1px solid #D5D5D5;
-    box-sizing: border-box;
-    &::placeholder {
-        color: #DBDBDB;
-        font-size: 20px;
-    }
-`
-const Btns = styled.div`
-    display: flex;
-    justify-content: end;
-    gap: 20px;
-`
-const BtnCancel = styled.button`
-    padding: 10px;
-    font-size: 16px;
-    background-color: #FFF;
-    border: none;
-    border-radius: 5px;
-    color: #52B6FF;
-    &:hover{
-        cursor: pointer;
-    }
-`
-const BtnSave = styled.button`
-    padding: 10px;
-    font-size: 16px;
-    background-color: #52B6FF;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    &:hover{
-        cursor: pointer;
-    }
-`
-/* ***************** */
 
 const SectionHabits = styled.div`
     padding: 0 20px;
@@ -139,7 +78,6 @@ const SectionHabits = styled.div`
         color: #666666;
     }
 `
-
 const SectionTitle = styled.div`
     display: flex;
     justify-content: space-between;
@@ -170,6 +108,7 @@ const Today = styled.button`
     position: absolute;
     bottom: 10px;
     left: calc((100vw - 91px) / 2);
+    cursor: pointer;
 `
 
 const Footer = styled.div`
@@ -200,6 +139,7 @@ const Header = styled.div`
     top: 0;
     left: 0;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 15px;
     box-sizing: border-box;

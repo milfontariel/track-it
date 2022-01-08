@@ -1,16 +1,43 @@
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react/cjs/react.development';
 import styled from 'styled-components';
 import LogoG from '../assets/logo_g.svg';
+import UserContext from '../contexts/UserContext';
 
 export default function Login() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const {setToken, setUserData} = useContext(UserContext);
+    const navigate = useNavigate();
+
+    function handlerLogin(e){
+        e.preventDefault();
+
+        const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', {
+            email, password
+        });
+        promise.then(response => {
+            setUserData(response.data);
+            setToken(response.data.token);
+            navigate('/habitos');
+        });
+        promise.catch(error => alert(error.response.data.message));
+    }
+
     return (
         <Container>
             <img src={LogoG} alt='Logo TrackIt' />
-            <Form>
-                <Input type='email' placeholder='Email'></Input>
-                <Input type='password' placeholder='Senha'></Input>
+            <Form onSubmit={handlerLogin}>
+                <Input type='email' value={email} placeholder='email' onChange={
+                    (e) => setEmail(e.target.value)
+                }></Input>
+                <Input type='password' value={password} placeholder='senha' onChange={
+                    (e) => setPassword(e.target.value)
+                }></Input>
                 <Button type='submit'>Entrar</Button>
-                <Link to='/'><p>Não tem uma conta? Cadastre-se!</p></Link>
+                <Link to='/cadastro'><p>Não tem uma conta? Cadastre-se!</p></Link>
             </Form>
         </Container>
     );
