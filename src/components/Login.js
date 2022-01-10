@@ -10,7 +10,7 @@ import Content from './Content';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { setToken, userData, setUserData } = useContext(UserContext);
+    const { setToken, setUserData } = useContext(UserContext);
     const navigate = useNavigate();
     const [loginStatus, setLoginStatus] = useState(false);
 

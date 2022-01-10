@@ -3,7 +3,6 @@ import UserContext from "../contexts/UserContext";
 import Check from "../assets/check.svg";
 import styled from "styled-components";
 import axios from "axios";
-import TodayHabits from "./TodayHabits";
 
 export default function ListHabits() {
     const { todayHabits, setTodayHabits, token } = useContext(UserContext);

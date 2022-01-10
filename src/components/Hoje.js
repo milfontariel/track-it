@@ -12,10 +12,10 @@ import TodayHabits from "./TodayHabits";
 import { SectionHabits } from "./Habitos";
 
 export default function Hoje() {
-    const {token, setTodayHabits} = useContext(UserContext);
+    const { token, setTodayHabits} = useContext(UserContext);
     dayjs.extend(localizedFormat);
     const today = dayjs().locale('pt').format('dddd, DD/MM');
-
+    
     useEffect(() => {
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', {
             headers: {

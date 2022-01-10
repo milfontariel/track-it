@@ -16,9 +16,11 @@ function App() {
     const [userData, setUserData] = useState(null);
     const [habits, setHabits] = useState([]);
     const [todayHabits, setTodayHabits] = useState([]);
+    const [doneHabits, setDoneHabits] = useState(0);
         return (
         <UserContext.Provider value={{token, setToken, userData, setUserData,
-        status, setStatus, habits, setHabits, todayHabits, setTodayHabits}}>
+        status, setStatus, habits, setHabits, todayHabits, setTodayHabits,
+        doneHabits, setDoneHabits}}>
             <BrowserRouter>
                 <Routes>
                     <Route path='/habitos' element={<Habitos></Habitos>}></Route>

@@ -21,6 +21,7 @@ const Profile = styled.div`
     background: ${props => `url(${props.image})`};
     background-color: #ff0;
     background-size: cover;
+    background-position: center center;
     `
 
 const Container = styled.div`

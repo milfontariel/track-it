@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoG from '../assets/logo_g.svg';
+import Loader from 'react-loader-spinner';
 
 export default function Cadastro() {
 
@@ -11,14 +12,24 @@ export default function Cadastro() {
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const navigate = useNavigate();
+    const [registerStatus, setRegisterStatus] = useState(false);
 
     function handlerRegister(e) {
         e.preventDefault();
+        setRegisterStatus(true)
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', {
             email, name, image, password
         });
-        promise.then(navigate('/'));
-        promise.catch(error => alert(error.response.data.message));
+        promise.then(() => {
+            navigate('/');
+            setRegisterStatus(false);
+        });
+        promise.catch(error => 
+            {
+                alert(error.response.data.message);
+                setRegisterStatus(false);
+            }
+            );
     }
 
 
@@ -26,19 +37,27 @@ export default function Cadastro() {
         <Container>
             <img src={LogoG} alt='Logo TrackIt' />
             <Form onSubmit={handlerRegister}>
-                <Input type='email' value={email} placeholder='email' onChange={
+                <Input disabled={registerStatus} type='email' value={email} placeholder='email' onChange={
                     (e) => setEmail(e.target.value)
                 }></Input>
-                <Input type='password' value={password} placeholder='senha' onChange={
+                <Input disabled={registerStatus} type='password' value={password} placeholder='senha' onChange={
                     (e) => setPassword(e.target.value)
                 }></Input>
-                <Input type='text' value={name} placeholder='nome' onChange={
+                <Input disabled={registerStatus} type='text' value={name} placeholder='nome' onChange={
                     (e) => setName(e.target.value)
                 }></Input>
-                <Input type='text' value={image} placeholder='foto' onChange={
+                <Input disabled={registerStatus} type='text' value={image} placeholder='foto' onChange={
                     (e) => setImage(e.target.value)
                 }></Input>
-                <Button type='submit'>Cadastrar</Button>
+                <Button type='submit' disabled={registerStatus} status={registerStatus}>
+                    {registerStatus ? <Loader
+                        type='Bars'
+                        width="20"
+                        heigth="20"
+                        color="#fff"
+                        arialLabel="loading-indicator"
+                    /> : 'Cadastrar'}
+                </Button>
                 <Link to='/'><p>Já tem uma conta? Faça login!</p></Link>
             </Form>
         </Container>
@@ -83,11 +102,20 @@ const Button = styled.button`
     width: 300px;
     padding: 10px;
     font-size: 21px;
-    background-color: #52B6FF;
+    background-color: ${props => props.status ? '#86CCFF': '#52B6FF'};
     border: none;
     border-radius: 5px;
     color: #fff;
     &:hover{
         cursor: pointer;
+    }
+    & div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    & div svg {
+        width: 30px;
+        height: 23px;
     }
 `
