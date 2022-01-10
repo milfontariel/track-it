@@ -27,7 +27,6 @@ export default function WeekDays() {
                 days.push(arrayWeek.indexOf(day) + 1)
             }
         })
-        console.log('Array Days: ', days);
         if (days.length === 0) {
             alert("Selecione pelo menos 1 dia");
             return
@@ -44,6 +43,7 @@ export default function WeekDays() {
 
         promise.then(() => {
             setStatus(false);
+            setSelectedDays([]);
             handlerLoad();
             days = [];
         });

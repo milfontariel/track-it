@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext } from "react";
-import { useState, useEffect } from "react/cjs/react.development";
+import { useEffect } from "react/cjs/react.development";
 import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 import Trash from "../assets/delete.svg";
@@ -23,6 +23,20 @@ export default function UserHabits() {
         promise.catch(error => console.log(error.response));
     }, []);
 
+    function deleteHabit(id) {
+        const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }, {}
+        );
+        promise.then(response => {
+            handlerLoad();
+        });
+        promise.catch(error => console.log('Deu ruim: ', error.response))
+    }
+
     function handlerLoad() {
 
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', {
@@ -34,17 +48,6 @@ export default function UserHabits() {
             setHabits(response.data);
         });
         promise.catch(error => console.log(error.response));
-    }
-
-    function deleteHabit(id) {
-        const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
-            {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            }, {}
-        );
-        promise.then(handlerLoad());
     }
 
     if (habits.length !== 0) {
@@ -143,7 +146,7 @@ const ItemHabit = styled.li`
 const NameHabits = styled.h1`
     font-size: 20px;
     color: #666666;
-    margin: 0;
+    margin: 0 0 10px 0;
 `;
 
 const DeleteButton = styled.button`
