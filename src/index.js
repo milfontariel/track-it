@@ -10,10 +10,14 @@ import { useState } from 'react/cjs/react.development';
 
 
 function App() {
+    const [status, setStatus] = useState(false);
     const [token, setToken] = useState(null);
     const [userData, setUserData] = useState(null);
+    const [habits, setHabits] = useState([]);
+    
         return (
-        <UserContext.Provider value={{token, setToken, userData, setUserData}}>
+        <UserContext.Provider value={{token, setToken, userData, setUserData,
+        status, setStatus, habits, setHabits}}>
             <BrowserRouter>
                 <Routes>
                     <Route path='/habitos' element={<Habitos></Habitos>}></Route>

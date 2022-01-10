@@ -1,33 +1,18 @@
 import axios from 'axios';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react/cjs/react.development';
 import styled from 'styled-components';
 import LogoP from '../assets/logo_p.svg';
 import UserContext from '../contexts/UserContext';
 import WeekDays from './WeekDays';
+import UserHabits from './UserHabits';
 
 export default function Habitos() {
-    const { userData, token } = useContext(UserContext);
-    const [habits, setHabits] = useState([]);
+    const { userData, setStatus } = useContext(UserContext);
 
-    const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', {
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
-    promise.then(response => setHabits(response.data));
-    promise.catch(error => console.log(error.response));
-
-    const [status, setStatus] = useState(false);
-
-    function handleCreate(e){
+    function handleCreate(e) {
         e.preventDefault();
-
         setStatus(true);
-
-
-
     }
 
     return (
@@ -41,15 +26,8 @@ export default function Habitos() {
                 <AddBtn onClick={handleCreate}>+</AddBtn>
             </SectionTitle>
             <SectionHabits>
-                {status !== false ? <WeekDays/> : ''}
-                {habits.length === 0 ?
-                    <p>
-                        Você não tem nenhum hábito cadastrado ainda. Adicione um hábito
-                        para começar a trackear!
-                    </p>
-                    : ``
-                }
-
+                <WeekDays/>
+                <UserHabits/>
             </SectionHabits>
             <Footer>
                 <Link to='/habitos'>Hábitos</Link>
@@ -70,6 +48,7 @@ const Profile = styled.div`
 `
 
 const SectionHabits = styled.div`
+    width: 100%;
     padding: 0 20px;
     box-sizing: border-box;
     & p {
@@ -95,6 +74,7 @@ const AddBtn = styled.button`
     height: 35px;
     color: #fff;
     font-size: 27px;
+    cursor: pointer;
 `
 
 const Today = styled.button`
@@ -149,8 +129,9 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 40px;
-    background-color: #F2f2f2;
+    background-color: #f2f2f2;
     width: 100vw;
     height: calc(100vh - 140px);
     margin: 70px 0 70px 0;
+    overflow-y: scroll;
 `;
