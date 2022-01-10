@@ -70,14 +70,14 @@ export default function UserHabits() {
 
                                         return (
                                             <div key={arrayWeek.indexOf(day)}>
-                                                <input type="checkbox" id={day} className="weekday" defaultChecked />
+                                                <input type="checkbox" id={day} className="weekday" disabled defaultChecked />
                                                 <label htmlFor={day}>{`${day[0].toUpperCase()}`}</label>
                                             </div>
                                         )
                                     } else {
                                         return (
                                             <div key={arrayWeek.indexOf(day)}>
-                                                <input type="checkbox" id={day} className="weekday" />
+                                                <input type="checkbox" id={day} disabled className="weekday" />
                                                 <label htmlFor={day}>{`${day[0].toUpperCase()}`}</label>
                                             </div>
                                         )
@@ -121,7 +121,6 @@ const HabitsWeekdays = styled.ul`
         margin-right: 3px;
         line-height: 35px;
         text-align: center;
-        cursor: pointer;
         color: #CFCFCF;
     }
     

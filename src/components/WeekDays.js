@@ -3,12 +3,14 @@ import { useState } from "react/cjs/react.development";
 import styled from "styled-components";
 import UserContext from '../contexts/UserContext';
 import { useContext } from "react";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export default function WeekDays() {
 
     const arrayWeek = ['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'];
     const { token, status, setStatus, setHabits } = useContext(UserContext);
-
+    const [createStatus, setCreateStatus] = useState(false);
     const [selectedDays, setSelectedDays] = useState([]);
     const [nameHabit, setNameHabit] = useState('');
     let days = [];
@@ -20,8 +22,10 @@ export default function WeekDays() {
             : aux.push(day);
         setSelectedDays(aux);
     }
+
     function postHabit(e) {
         e.preventDefault();
+        setCreateStatus(true);
         arrayWeek.forEach(day => {
             if (selectedDays.includes(day)) {
                 days.push(arrayWeek.indexOf(day) + 1)
@@ -45,9 +49,10 @@ export default function WeekDays() {
             setStatus(false);
             setSelectedDays([]);
             handlerLoad();
+            setCreateStatus(false);
             days = [];
         });
-        promise.catch(error => console.log(error.response));
+        promise.catch(error => setCreateStatus(false));
 
     }
 
@@ -71,10 +76,10 @@ export default function WeekDays() {
 
         return (
             <FormCreateHabit onSubmit={postHabit}>
-                <InputCreateHabit type='text' placeholder='nome do hábito'
+                <InputCreateHabit  disabled={createStatus} type='text' placeholder='nome do hábito'
                     onChange={e => setNameHabit(e.target.value)}>
                 </InputCreateHabit>
-                <InputWeekDays>
+                <InputWeekDays disabled={createStatus}>
                     {arrayWeek.map(day => {
                         return (
                             <li key={arrayWeek.indexOf(day)}>
@@ -85,8 +90,16 @@ export default function WeekDays() {
                     })}
                 </InputWeekDays>
                 <Btns>
-                    <BtnCancel onClick={handlerCancel}>Cancelar</BtnCancel>
-                    <BtnSave type="submit">Salvar</BtnSave>
+                    <BtnCancel disabled={createStatus} onClick={handlerCancel}>Cancelar</BtnCancel>
+                    <BtnSave disabled={createStatus} status={createStatus} type="submit">
+                        {createStatus ? <Loader
+                            type='Bars'
+                            width="20"
+                            heigth="20"
+                            color="#fff"
+                            arialLabel="loading-indicator"
+                        /> : "Salvar"}
+                    </BtnSave>
                 </Btns>
             </FormCreateHabit>
 
@@ -137,14 +150,24 @@ const BtnCancel = styled.button`
     }
 `
 const BtnSave = styled.button`
+    width: 70px;
     padding: 10px;
     font-size: 16px;
-    background-color: #52B6FF;
+    background-color: ${props => props.status ? '#86CCFF': '#52B6FF'};
     border: none;
     border-radius: 5px;
     color: #fff;
     &:hover{
         cursor: pointer;
+    }
+    & div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    & div svg {
+        width: 30px;
+        height: 18px;
     }
 `
 

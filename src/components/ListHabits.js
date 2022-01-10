@@ -93,6 +93,7 @@ const ItemHabit = styled.li`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 5px;
 `
 
 const NameHabits = styled.h1`
@@ -112,4 +113,7 @@ const DoneButton = styled.button`
     border: 1px solid #E7E7E7;
     box-sizing: border-box;
     border-radius: 5px;
+    & img {
+        margin: 22px 18px;
+    }
 `;
