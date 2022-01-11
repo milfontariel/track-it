@@ -1,29 +1,50 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { useContext } from "react/cjs/react.development";
+import UserContext from "../contexts/UserContext";
 
 export default function Footer() {
+    const { doneHabits } = useContext(UserContext);
+
     return (
         <Container>
             <Link to='/habitos'>Hábitos</Link>
-            <Link to='/hoje'><Today>Hoje</Today></Link>
+            <Link to='/hoje'>
+                <Today>
+                    <CircularProgressbar value={Math.round(doneHabits)} text="Hoje"
+                        styles={{
+                            text: {
+                                fontSize: "22px",
+                                fill: '#fff'
+                            },
+                            path: {
+                                stroke: '#fff'
+                            },
+                            trail: {
+                                stroke: 'none'
+                            }
+                        }}
+                    />
+                </Today>
+            </Link>
             <Link to='/historico'>Histórico</Link>
         </Container>
     )
 }
 
 const Today = styled.button`
-    width: 91px;
-    height: 91px;
-    background-color: #52B6FF;
-    border-radius: 50%;
-    color: #fff;
     border-style: none;
-    font-size: 18px;
     position: absolute;
     bottom: 10px;
     left: calc((100vw - 91px) / 2);
+    height: 91px;
+    width: 91px;
+    background-color: #52B6FF;
+    border-radius: 50%;
     cursor: pointer;
-    `
+`
 
 const Container = styled.div`
     height: 70px;

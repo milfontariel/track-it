@@ -21,7 +21,7 @@ export default function Habitos() {
             <Title>
                 <SectionTitle text={'Meus Hábitos'}>
                 </SectionTitle>
-                    <AddBtn onClick={handleCreate}>+</AddBtn>
+                    <AddBtn onClick={handleCreate}><p>+</p></AddBtn>
             </Title>
             <SectionHabits>
                 <WeekDays />
@@ -59,9 +59,15 @@ export const AddBtn = styled.button`
     border-radius: 5px;
     width: 40px;
     height: 35px;
-    color: #fff;
-    font-size: 27px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    & p {
+        color: #fff;
+        font-size: 27px;
+        margin: 0;
+    }
     `
 export const Container = styled.div`
     display: flex;
