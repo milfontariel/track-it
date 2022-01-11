@@ -6,7 +6,7 @@ import './style.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Habitos from './components/Habitos';
 import UserContext from './contexts/UserContext';
-import { useState } from 'react/cjs/react.development';
+import { useEffect, useState } from 'react/cjs/react.development';
 import Historico from './components/Historico';
 import Hoje from './components/Hoje';
 
@@ -17,10 +17,27 @@ function App() {
     const [habits, setHabits] = useState([]);
     const [todayHabits, setTodayHabits] = useState([]);
     const [doneHabits, setDoneHabits] = useState(0);
-        return (
-        <UserContext.Provider value={{token, setToken, userData, setUserData,
-        status, setStatus, habits, setHabits, todayHabits, setTodayHabits,
-        doneHabits, setDoneHabits}}>
+
+    useEffect(() => {
+        if (todayHabits.length !== 0) {
+            const array = [];
+            todayHabits.forEach(habit => {
+                if (habit.done) {
+                    array.push(habit.id);
+                }
+            });
+            const done = array.length;
+            setDoneHabits((100 / todayHabits.length) * done);
+            console.log("Concluídos: ", doneHabits);
+        }
+    });
+
+    return (
+        <UserContext.Provider value={{
+            token, setToken, userData, setUserData,
+            status, setStatus, habits, setHabits, todayHabits, setTodayHabits,
+            doneHabits, setDoneHabits
+        }}>
             <BrowserRouter>
                 <Routes>
                     <Route path='/habitos' element={<Habitos></Habitos>}></Route>
