@@ -1,4 +1,4 @@
-import { useContext } from 'react/cjs/react.development';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import LogoP from '../assets/logo_p.svg';
 import UserContext from '../contexts/UserContext';

@@ -1,4 +1,4 @@
-import { useContext } from "react/cjs/react.development"
+import { useContext } from "react"
 import UserContext from "../contexts/UserContext"
 import { Text } from "./Historico";
 import ListHabits from "./ListHabits";

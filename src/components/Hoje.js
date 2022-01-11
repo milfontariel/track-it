@@ -5,7 +5,7 @@ import { Container } from "./Habitos";
 import Footer from "./Footer";
 import Header from "./Header";
 import SectionTitle from "./SectionTitle";
-import { useContext, useEffect } from "react/cjs/react.development";
+import { useContext, useEffect } from "react";
 import axios from "axios";
 import UserContext from "../contexts/UserContext";
 import TodayHabits from "./TodayHabits";

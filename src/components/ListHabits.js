@@ -1,4 +1,4 @@
-import { useContext } from "react/cjs/react.development";
+import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import Check from "../assets/check.svg";
 import styled from "styled-components";

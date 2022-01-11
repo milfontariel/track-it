@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
 import styled from 'styled-components';
 import LogoG from '../assets/logo_g.svg';
 import UserContext from '../contexts/UserContext';

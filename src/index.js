@@ -6,7 +6,7 @@ import './style.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Habitos from './components/Habitos';
 import UserContext from './contexts/UserContext';
-import { useEffect, useState } from 'react/cjs/react.development';
+import { useEffect, useState } from 'react';
 import Historico from './components/Historico';
 import Hoje from './components/Hoje';
 

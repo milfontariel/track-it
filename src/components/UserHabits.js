@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext } from "react";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 import Trash from "../assets/delete.svg";

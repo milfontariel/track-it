@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { useContext } from "react/cjs/react.development";
+import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
 export default function Footer() {
