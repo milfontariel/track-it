@@ -79,4 +79,7 @@ export const Container = styled.div`
     height: calc(100vh - 140px);
     margin: 70px 0 70px 0;
     overflow-y: scroll;
+    &::-webkit-scrollbar{
+        display: none
+    }
     `

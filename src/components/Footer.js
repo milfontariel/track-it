@@ -58,6 +58,7 @@ const Container = styled.div`
     padding: 0 20px;
     box-sizing: border-box;
     align-items: center;
+    border-top: 1px solid rgba(136,136,136,0.14);
     & a {
         font-size: 18px;
         color: #52B6FF;
