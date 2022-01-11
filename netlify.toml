@@ -1,2 +1,2 @@
 [build]
-command = “process.env.CI = false npm run build”
+command = “CI=false npm run build”
