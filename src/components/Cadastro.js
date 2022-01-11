@@ -37,16 +37,16 @@ export default function Cadastro() {
         <Container>
             <img src={LogoG} alt='Logo TrackIt' />
             <Form onSubmit={handlerRegister}>
-                <Input disabled={registerStatus} type='email' value={email} placeholder='email' onChange={
+                <Input disabled={registerStatus} required type='email' value={email} placeholder='email' onChange={
                     (e) => setEmail(e.target.value)
                 }></Input>
-                <Input disabled={registerStatus} type='password' value={password} placeholder='senha' onChange={
+                <Input disabled={registerStatus} required type='password' value={password} placeholder='senha' onChange={
                     (e) => setPassword(e.target.value)
                 }></Input>
-                <Input disabled={registerStatus} type='text' value={name} placeholder='nome' onChange={
+                <Input disabled={registerStatus} required type='text' value={name} placeholder='nome' onChange={
                     (e) => setName(e.target.value)
                 }></Input>
-                <Input disabled={registerStatus} type='text' value={image} placeholder='foto' onChange={
+                <Input disabled={registerStatus} required type='text' value={image} placeholder='url da imagem' onChange={
                     (e) => setImage(e.target.value)
                 }></Input>
                 <Button type='submit' disabled={registerStatus} status={registerStatus}>

@@ -37,10 +37,10 @@ export default function Login() {
         <Container>
             <img src={LogoG} alt='Logo TrackIt' />
             <Form onSubmit={handlerLogin}>
-                <Input disabled={loginStatus} type='email' value={email} placeholder='email' onChange={
+                <Input disabled={loginStatus} required type='email' value={email} placeholder='email' onChange={
                     (e) => setEmail(e.target.value)
                 }></Input>
-                <Input disabled={loginStatus} type='password' value={password} placeholder='senha' onChange={
+                <Input disabled={loginStatus} required type='password' value={password} placeholder='senha' onChange={
                     (e) => setPassword(e.target.value)
                 }></Input>
                 <Button status={loginStatus} disabled={loginStatus} type='submit'>
