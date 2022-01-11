@@ -34,7 +34,7 @@ export default function UserHabits() {
         promise.then(response => {
             handlerLoad();
         });
-        promise.catch(error => console.log('Deu ruim: ', error.response))
+        promise.catch(error => console.log(error.response))
     }
 
     function handlerLoad() {
