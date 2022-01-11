@@ -28,7 +28,6 @@ function App() {
             });
             const done = array.length;
             setDoneHabits((100 / todayHabits.length) * done);
-            console.log("Concluídos: ", doneHabits);
         }
     });
 
