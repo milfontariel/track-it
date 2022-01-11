@@ -26,7 +26,6 @@ export default function Cadastro() {
         });
         promise.catch(error => 
             {
-                alert(error.response.data.message);
                 setRegisterStatus(false);
             }
             );
