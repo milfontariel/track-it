@@ -25,16 +25,25 @@ export default function WeekDays() {
 
     function postHabit(e) {
         e.preventDefault();
-        setCreateStatus(true);
+        
         arrayWeek.forEach(day => {
             if (selectedDays.includes(day)) {
                 days.push(arrayWeek.indexOf(day) + 1)
             }
         })
+        if (days.length === 0 && nameHabit.length === 0) {
+            alert("Preencha as informações do hábito");
+            return
+        }
         if (days.length === 0) {
             alert("Selecione pelo menos 1 dia");
             return
         }
+        if (nameHabit.length === 0) {
+            alert("Adicione um nome ao hábito");
+            return
+        }
+        setCreateStatus(true);
 
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', {
             name: nameHabit,
