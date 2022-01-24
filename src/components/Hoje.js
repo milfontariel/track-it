@@ -27,7 +27,7 @@ export default function Hoje() {
             setTodayHabits(response.data);
         });
         promise.catch(error => console.log(error.response));
-    }, [])
+    }, []);
 
     return (
         <Container>

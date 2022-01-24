@@ -29,7 +29,7 @@ function App() {
             const done = array.length;
             setDoneHabits((100 / todayHabits.length) * done);
         }
-    });
+    }, [todayHabits]);
 
     return (
         <UserContext.Provider value={{
