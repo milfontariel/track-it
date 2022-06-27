@@ -53,7 +53,7 @@ Windows, Linux e macOS:
 3. Dê um nome e selecione quais dias você gostaria de praticá-lo.
 ```
 ```
-4. Agora que já possui um hábito basta acessar o "Hoje" e marcar como concluído os hábitos do dia se assim o fez.
+4. Agora que já possui um hábito basta acessar o "Hoje" e acompanhar seus hábitos.
 ```
 
 [⬆ Voltar ao topo](#track-it)<br>
