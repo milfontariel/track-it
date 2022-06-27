@@ -32,7 +32,7 @@ Windows, Linux e macOS:
 2. Vá até o diretório baixado, abra o terminal e rode o seguinte comando:
 ```
 ```
-3. `npm start
+3. npm start
 ```
 ```
 4. Em seu navegador acesse o seguinte endereço: http://localhost:3000
